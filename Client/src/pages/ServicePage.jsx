@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import ServiceCard from "../components/ServiceCard";
 import Modal from "../components/Modal";
+import WebsiteCostCalculator from "../components/Calculator";
+import Footer from "../components/Footer";
+import AppointmentCalendar from "../components/Calender";
 
 const ServicesPage = () => {
   const offerSectionRef = useRef(null);
@@ -149,6 +152,7 @@ const ServicesPage = () => {
           </div>
         </div>
       </div>
+      <WebsiteCostCalculator />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -162,6 +166,7 @@ const ServicesPage = () => {
           Let us discuss how our services can help your business grow and
           succeed in the digital landscape.
         </p>
+
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -170,12 +175,13 @@ const ServicesPage = () => {
           Contact Us
         </motion.button>
       </motion.div>
-
+      <AppointmentCalendar />
       <Modal
         isOpen={!!selectedService}
         onClose={closeModal}
         service={selectedService}
       />
+      <Footer />
     </div>
   );
 };

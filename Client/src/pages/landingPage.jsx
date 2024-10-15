@@ -6,6 +6,7 @@ import Services from "../components/Services";
 import PricingSection from "../components/Pricing";
 import ContactUsModal from "../components/ContactUsModal";
 import Footer from "../components/Footer";
+import WebsiteCostCalculator from "../components/Calculator";
 
 const LandingPage = () => {
   return (
@@ -67,7 +68,7 @@ const LandingPage = () => {
                     { label: "Networking and Communications", value: 2044 },
                   ].map((item, index) => (
                     <div key={index} className="flex justify-between">
-                      <span>{'${index + 1}. ${item.label}'}</span>
+                      <span>{"${index + 1}. ${item.label}"}</span>
                       <span>{item.value}</span>
                     </div>
                   ))}
@@ -112,7 +113,8 @@ const LandingPage = () => {
         <AboutUs />
         <Services />
         <PricingSection />
-        <ContactUsModal/>
+        <WebsiteCostCalculator />
+        <ContactUsModal />
         <Footer />
       </section>
     </>
@@ -120,66 +122,3 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
-
-const services = [
-  {
-    id: "01",
-    title: "Mobile Application Development",
-    description:
-      "Create cutting-edge mobile applications for iOS and Android platforms. Our expert team delivers intuitive, high-performance apps tailored to your business needs.",
-    features: [
-      "Native and cross-platform development",
-      "UI/UX design",
-      "App Store optimization",
-    ],
-    color: "bg-gray-800",
-    icon: "📱",
-    fullDescription:
-      "Our mobile application development service offers end-to-end solutions for businesses looking to establish a strong mobile presence. We specialize in creating both native and cross-platform applications that are optimized for performance and user experience. Our team of skilled developers and designers work collaboratively to bring your vision to life, ensuring that your app stands out in the crowded app marketplaces. We handle everything from initial concept and wireframing to final deployment and ongoing support, making the entire process smooth and hassle-free for our clients.",
-  },
-  {
-    id: "02",
-    title: "Web Application Development",
-    description:
-      "Build responsive and scalable web applications using the latest technologies. We focus on creating seamless user experiences and robust backend systems.",
-    features: [
-      "Full-stack development",
-      "Progressive Web Apps (PWA)",
-      "API integration",
-    ],
-    color: "bg-purple-700",
-    icon: "🌐",
-    fullDescription:
-      "Our web application development service is designed to help businesses create powerful, scalable, and user-friendly web applications. We leverage the latest technologies and frameworks to build responsive applications that work seamlessly across all devices and platforms. Our full-stack development approach ensures that both the front-end and back-end of your application are optimized for performance and security. We specialize in creating Progressive Web Apps (PWAs) that offer app-like experiences right in the browser, and we excel at integrating complex APIs to extend the functionality of your web applications.",
-  },
-  {
-    id: "03",
-    title: "Cloud Development",
-    description:
-      "Harness the power of cloud computing to scale your business. Our cloud solutions ensure high availability, security, and cost-effectiveness.",
-    features: [
-      "AWS, Azure, and Google Cloud",
-      "Microservices architecture",
-      "Serverless computing",
-    ],
-    color: "bg-indigo-600",
-    icon: "☁",
-    fullDescription:
-      "Our cloud development services are designed to help businesses leverage the full potential of cloud computing. We work with leading cloud platforms including AWS, Azure, and Google Cloud to create scalable, secure, and cost-effective solutions. Our expertise in microservices architecture allows us to build applications that are easier to scale and maintain. We also specialize in serverless computing, helping you reduce operational costs and focus on core business logic rather than infrastructure management. Whether you're looking to migrate existing applications to the cloud or build cloud-native solutions from scratch, our team has the expertise to guide you through the process.",
-  },
-  {
-    id: "04",
-    title: "AI & Machine Learning",
-    description:
-      "Leverage artificial intelligence and machine learning to gain insights and automate processes. We develop custom AI solutions to drive your business forward.",
-    features: [
-      "Natural Language Processing",
-      "Computer Vision",
-      "Predictive Analytics",
-    ],
-    color: "bg-blue-600",
-    icon: "🤖",
-    fullDescription:
-      "Our AI & Machine Learning services are at the cutting edge of technology, offering businesses the tools they need to automate processes, gain deep insights, and make data-driven decisions. We specialize in developing custom AI solutions that address specific business challenges. Our expertise spans Natural Language Processing (NLP) for text analysis and chatbots, Computer Vision for image and video analysis, and Predictive Analytics for forecasting and decision-making. We work closely with our clients to understand their unique needs and develop AI models that integrate seamlessly with their existing systems, providing tangible business value and a competitive edge in the market.",
-  },
-];
