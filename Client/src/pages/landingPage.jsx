@@ -6,7 +6,7 @@ import Services from "../components/Services";
 import PricingSection from "../components/Pricing";
 import ContactUsModal from "../components/ContactUsModal";
 import Footer from "../components/Footer";
-import WebsiteCostCalculator from "../components/Calculator";
+//import WebsiteCostCalculator from "../components/Calculator";
 
 const LandingPage = () => {
   return (
@@ -113,7 +113,7 @@ const LandingPage = () => {
         <AboutUs />
         <Services />
         <PricingSection />
-        <WebsiteCostCalculator />
+        {/* <WebsiteCostCalculator /> */}
         <ContactUsModal />
         <Footer />
       </section>

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -6,15 +5,19 @@ const AppointmentCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(null);
   const [showDialog, setShowDialog] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const timeSlots = [
-    "9:00 AM",
+    "09:00 AM",
     "10:00 AM",
     "11:00 AM",
-    "1:00 PM",
-    "2:00 PM",
-    "3:00 PM",
-    "4:00 PM",
+    "01:00 PM",
+    "02:00 PM",
+    "03:00 PM",
+    "04:00 PM",
   ];
 
   const daysInMonth = new Date(
@@ -22,6 +25,7 @@ const AppointmentCalendar = () => {
     selectedDate.getMonth() + 1,
     0
   ).getDate();
+
   const firstDayOfMonth = new Date(
     selectedDate.getFullYear(),
     selectedDate.getMonth(),
@@ -37,15 +41,69 @@ const AppointmentCalendar = () => {
 
   const handleTimeSelect = (time) => {
     setSelectedTime(time);
-    setShowDialog(true);
   };
 
   const handleBookAppointment = () => {
-    console.log(
-      `Appointment booked for ${selectedDate.toDateString()} at ${selectedTime}`
-    );
-    setShowDialog(false);
-    // Here you would typically send this data to your backend
+    setShowDialog(true);
+  };
+
+  const validateInputs = () => {
+    if (!name.trim()) return "Name is required";
+    if (!email.trim()) return "Email is required";
+    if (!/\S+@\S+\.\S+/.test(email)) return "Invalid email format";
+    return null;
+  };
+
+  const handleConfirmAppointment = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrorMessage("");
+
+    const validationError = validateInputs();
+    if (validationError) {
+      setErrorMessage(validationError);
+      setLoading(false);
+      return;
+    }
+
+    const appointmentData = {
+      name,
+      email,
+      date: selectedDate.toISOString().split("T")[0],
+      time: selectedTime,
+    };
+
+    const baseUrl = "http://localhost:8080"; // Replace with your actual API base URL
+
+    try {
+      const response = await fetch(`${baseUrl}/api/appointments`, {
+        method: "POST",
+        body: JSON.stringify(appointmentData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to book appointment");
+      }
+
+      const result = await response.json();
+      console.log("Appointment booked successfully:", result);
+      alert("Appointment booked successfully!");
+      setShowDialog(false);
+      setName("");
+      setEmail("");
+      setSelectedTime(null);
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+      setErrorMessage(
+        error.message || "Failed to book appointment. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const renderCalendar = () => {
@@ -56,6 +114,7 @@ const AppointmentCalendar = () => {
     }
     for (let day = 1; day <= daysInMonth; day++) {
       const isSelected = day === selectedDate.getDate();
+      // eslint-disable-next-line no-unused-vars
       const isToday =
         day === currentDate.getDate() &&
         selectedDate.getMonth() === currentDate.getMonth() &&
@@ -97,7 +156,7 @@ const AppointmentCalendar = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen flex items-center justify-center bg-black py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div className="max-w-4xl w-full space-y-8   bg-gray-900 p-8 rounded-xl border-2 border-purple-500 shadow-2xl">
+      <div className="max-w-4xl w-full space-y-8 bg-gray-900 p-8 rounded-xl border-2 border-purple-500 shadow-2xl">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -158,13 +217,29 @@ const AppointmentCalendar = () => {
           </motion.div>
         </div>
 
+        {selectedDate && selectedTime && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-8 flex justify-center"
+          >
+            <button
+              onClick={handleBookAppointment}
+              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+            >
+              Book Appointment
+            </button>
+          </motion.div>
+        )}
+
         {showDialog && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
           >
-            <div className="bg-gray-800 p-6 rounded-lg border-2 border-purple-500 max-w-sm w-full">
+            <div className="bg-gray-800 p-6 rounded-lg border-2 border-purple-500 max-w-md w-full">
               <h3 className="text-2xl font-semibold text-purple-400 mb-4">
                 Confirm Your Appointment
               </h3>
@@ -172,14 +247,44 @@ const AppointmentCalendar = () => {
                 Date: {selectedDate.toDateString()}
               </p>
               <p className="text-white mb-4">Time: {selectedTime}</p>
-              <div className="flex justify-end">
-                <button
-                  onClick={handleBookAppointment}
-                  className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
-                >
-                  Book Appointment
-                </button>
-              </div>
+              <form onSubmit={handleConfirmAppointment} className="space-y-4">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full p-2 rounded-md bg-gray-700 text-white"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-2 rounded-md bg-gray-700 text-white"
+                  required
+                />
+                {errorMessage && (
+                  <p className="text-red-500 text-sm">{errorMessage}</p>
+                )}
+                <div className="flex justify-end mt-6">
+                  <button
+                    type="button"
+                    onClick={() => setShowDialog(false)}
+                    className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg mr-4 transition duration-300 ease-in-out"
+                    disabled={loading}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+                    disabled={loading}
+                  >
+                    {loading ? "Booking..." : "Confirm Booking"}
+                  </button>
+                </div>
+              </form>
             </div>
           </motion.div>
         )}

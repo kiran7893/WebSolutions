@@ -35,6 +35,9 @@ const userRoutes = require("./routes/userRoutes"); // Make sure this file exists
 app.use("/api", userRoutes); // Route all API requests to '/api'
 const adminRoutes = require("./routes/AdminRoutes"); // Import admin routes
 app.use("/admin", adminRoutes); // Mount the admin routes
+// Import appointment routes
+const appointmentRoutes = require("./routes/appointmentRoutes");
+app.use("/api/appointments", appointmentRoutes); // Mount the appointment routes
 
 // MongoDB Connection URI from environment variables
 const uri = process.env.CONNECTION;
