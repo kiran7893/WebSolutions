@@ -71,7 +71,7 @@ const NavBar = () => {
       <motion.header className="sticky top-0 z-50 flex flex-wrap justify-between items-center px-6 py-4 bg-black text-white shadow-lg">
         <motion.div className="text-2xl font-bold">
           <motion.img
-            src="/gtec2.jpg"
+            src="/"
             alt="Logo"
             className="h-10 w-auto"
             whileHover={{ scale: 1.1 }}

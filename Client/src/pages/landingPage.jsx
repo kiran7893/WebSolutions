@@ -56,23 +56,18 @@ const LandingPage = () => {
                     infinite={false}
                   />
                 </h1>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.6, duration: 0.5 }}
-                  className="space-y-3 text-gray-400 text-sm sm:text-base"
-                >
+                <div className="space-y-3 text-gray-400 text-sm sm:text-base">
                   {[
                     { label: "Software Development", value: 4024 },
                     { label: "Data Storage and Management", value: 5202 },
                     { label: "Networking and Communications", value: 2044 },
                   ].map((item, index) => (
                     <div key={index} className="flex justify-between">
-                      <span>{"${index + 1}. ${item.label}"}</span>
+                      <span>{`${index + 1}. ${item.label}`}</span>
                       <span>{item.value}</span>
                     </div>
                   ))}
-                </motion.div>
+                </div>
               </motion.div>
 
               <motion.div

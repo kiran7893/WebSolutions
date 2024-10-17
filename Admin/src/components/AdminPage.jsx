@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Pagination from "./pagination"; // Adjust the import path as necessary
 
@@ -58,10 +58,45 @@ const AdminPage = () => {
             <div className="px-4 py-8 sm:px-6 lg:px-8">
               <header className="text-center mb-12">
                 <h1 className="text-5xl font-extrabold text-gray-900 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
-                  G-TEC
+                  TechBuddyz
                 </h1>
                 <p className="mt-3 text-xl text-gray-600">Admin Dashboard</p>
               </header>
+
+              {/* Navigation */}
+              <nav className="mb-8">
+                <ul className="flex justify-center space-x-6">
+                  <li>
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) =>
+                        `text-lg font-semibold ${
+                          isActive
+                            ? "text-blue-600 border-b-2 border-blue-600"
+                            : "text-gray-600 hover:text-blue-500"
+                        }`
+                      }
+                    >
+                      Queries
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/appointments"
+                      className={({ isActive }) =>
+                        `text-lg font-semibold ${
+                          isActive
+                            ? "text-blue-600 border-b-2 border-blue-600"
+                            : "text-gray-600 hover:text-blue-500"
+                        }`
+                      }
+                    >
+                      Appointments
+                    </NavLink>
+                  </li>
+                </ul>
+              </nav>
+
               <div className="mt-8">
                 <h2 className="text-3xl font-semibold mb-6 text-gray-800">
                   Queries/Requests

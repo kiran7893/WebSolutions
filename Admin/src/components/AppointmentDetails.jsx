@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const AppointmentDetailsPage = () => {
-  const { id } = useParams(); // Get the appointment ID from the URL
+  const { id } = useParams();
   const [appointment, setAppointment] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch appointment data from API
     const fetchAppointment = async () => {
       try {
         const response = await fetch(
@@ -21,7 +20,7 @@ const AppointmentDetailsPage = () => {
         setAppointment(data);
         setLoading(false);
       } catch (err) {
-        setError(err.message); // Set error message
+        setError(err.message);
         setLoading(false);
       }
     };
@@ -57,34 +56,23 @@ const AppointmentDetailsPage = () => {
                 <div>
                   <h2 className="text-2xl font-semibold text-gray-800">Date</h2>
                   <p className="text-lg text-gray-600">
-                    {new Date(appointment.date).toLocaleDateString()}{" "}
-                    {/* Format the date */}
+                    {new Date(appointment.date).toLocaleDateString()}
                   </p>
                 </div>
                 <div>
                   <h2 className="text-2xl font-semibold text-gray-800">Time</h2>
                   <p className="text-lg text-gray-600">{appointment.time}</p>
                 </div>
-                <div>
-                  <h2 className="text-2xl font-semibold text-gray-800">
-                    Created At
-                  </h2>
-                  <p className="text-lg text-gray-600">
-                    {new Date(appointment.createdAt).toLocaleString()}{" "}
-                    {/* Format the created date */}
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-2xl font-semibold text-gray-800">
-                    Updated At
-                  </h2>
-                  <p className="text-lg text-gray-600">
-                    {new Date(appointment.updatedAt).toLocaleString()}{" "}
-                    {/* Format the updated date */}
-                  </p>
-                </div>
               </div>
             )}
+            <div className="mt-8">
+              <Link
+                to="/appointments"
+                className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              >
+                Back to Appointments
+              </Link>
+            </div>
           </div>
         </div>
       </div>
