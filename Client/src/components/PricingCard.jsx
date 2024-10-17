@@ -36,7 +36,7 @@ const PricingCard = ({
     <motion.button
       className={`py-2 px-4 rounded-full mb-6 text-sm font-semibold ${
         popular
-          ? "bg-purple-500 hover:bg-purple-600"
+          ? "bg-purple-600 hover:bg-purple-700"
           : "bg-gray-700 hover:bg-gray-600"
       }`}
       whileHover={{ scale: 1.05 }}

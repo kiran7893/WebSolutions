@@ -6,7 +6,8 @@ const PricingSection = () => {
     {
       title: "Basic",
       price: "0",
-      description: "For personal use and exploration of AI technology.",
+      description:
+        "For personal use and exploration of AI technology.For personal use and exploration of AI technology.For personal use and exploration of AI technology.For personal use and exploration of AI technology.",
       features: [
         "100 requests per day",
         "Free trial features access",
@@ -32,7 +33,7 @@ const PricingSection = () => {
       title: "Enterprise",
       price: "Contact us",
       description:
-        "Perfect for large businesses or organizations that require specialized support.",
+        "Perfect for large businesses or organizations that require specialized support.Perfect for large businesses or organizations that require specialized support.",
       features: [
         "Custom deployment",
         "Comprehensive usage data",

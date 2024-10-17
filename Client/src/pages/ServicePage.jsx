@@ -153,7 +153,7 @@ const ServicesPage = () => {
         </div>
       </div>
       <WebsiteCostCalculator />
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.5 }}
@@ -174,7 +174,7 @@ const ServicesPage = () => {
         >
           Contact Us
         </motion.button>
-      </motion.div>
+      </motion.div> */}
       <AppointmentCalendar />
       <Modal
         isOpen={!!selectedService}

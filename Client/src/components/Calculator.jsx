@@ -12,6 +12,7 @@ const WebsiteCostCalculator = () => {
     additionalServices: [],
   });
   const [estimatedCost, setEstimatedCost] = useState(null);
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     if (type === "checkbox") {
@@ -51,44 +52,43 @@ const WebsiteCostCalculator = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen flex items-center justify-center  bg-black py-12 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 py-8 px-4 sm:px-6 lg:px-8"
     >
-      <div className="max-w-3xl w-full space-y-8   bg-gray-900 p-8 rounded-xl border-2 border-purple-500 shadow-2xl">
+      <div className="max-w-3xl w-full bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border-2 border-purple-500/50 shadow-2xl">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-4xl font-extrabold text-center text-white mb-8"
+          className="text-3xl font-extrabold text-center text-white mb-6"
         >
           Website Design Cost Calculator
         </motion.h1>
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <motion.div
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="space-y-6"
           >
-            <h2 className="text-2xl font-semibold text-purple-400 mb-4">
+            <h2 className="text-xl font-semibold text-purple-400 mb-3">
               Basic Information
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <label className="block">
-                <span className="text-white">
-                  Is this a new website or redesign?
+                <span className="text-white text-sm">
+                  New website or redesign?
                 </span>
                 <select
                   name="newOrRedesign"
                   value={formData.newOrRedesign}
                   onChange={handleInputChange}
-                  className="mt-1 block w-full bg-gray-700 border border-gray-700 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50 text-white"
+                  className="mt-1 block w-full bg-gray-700/50 border border-gray-700 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50 text-white"
                 >
                   <option value="New">New</option>
                   <option value="Redesign">Redesign</option>
                 </select>
               </label>
               <label className="block">
-                <span className="text-white">Number of Pages:</span>
+                <span className="text-white text-sm">Number of Pages</span>
                 <input
                   type="number"
                   name="numPages"
@@ -96,7 +96,7 @@ const WebsiteCostCalculator = () => {
                   onChange={handleInputChange}
                   min="1"
                   max="100"
-                  className="mt-1 block w-full bg-gray-700 border border-gray-700 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50 text-white"
+                  className="mt-1 block w-full bg-gray-700/50 border border-gray-700 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50 text-white"
                 />
               </label>
             </div>
@@ -106,18 +106,17 @@ const WebsiteCostCalculator = () => {
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="space-y-6"
           >
-            <h2 className="text-2xl font-semibold text-purple-400 mb-4">
+            <h2 className="text-xl font-semibold text-purple-400 mb-3">
               UI/UX Design
             </h2>
             <label className="block">
-              <span className="text-white">UI/UX Design Type:</span>
+              <span className="text-white text-sm">Design Type</span>
               <select
                 name="uiUxDesign"
                 value={formData.uiUxDesign}
                 onChange={handleInputChange}
-                className="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50 text-white"
+                className="mt-1 block w-full bg-gray-700/50 border border-gray-700 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-500 focus:ring-opacity-50 text-white"
               >
                 <option value="Standard">Standard</option>
                 <option value="Advanced">Advanced</option>
@@ -130,12 +129,11 @@ const WebsiteCostCalculator = () => {
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="space-y-6"
           >
-            <h2 className="text-2xl font-semibold text-purple-400 mb-4">
+            <h2 className="text-xl font-semibold text-purple-400 mb-3">
               E-commerce Functionality
             </h2>
-            <div className="flex space-x-6">
+            <div className="flex space-x-4">
               <label className="inline-flex items-center">
                 <input
                   type="radio"
@@ -145,7 +143,7 @@ const WebsiteCostCalculator = () => {
                   onChange={handleInputChange}
                   className="form-radio text-purple-500"
                 />
-                <span className="ml-2 text-white">Yes</span>
+                <span className="ml-2 text-white text-sm">Yes</span>
               </label>
               <label className="inline-flex items-center">
                 <input
@@ -156,7 +154,7 @@ const WebsiteCostCalculator = () => {
                   onChange={handleInputChange}
                   className="form-radio text-purple-500"
                 />
-                <span className="ml-2 text-white">No</span>
+                <span className="ml-2 text-white text-sm">No</span>
               </label>
             </div>
           </motion.div>
@@ -165,12 +163,11 @@ const WebsiteCostCalculator = () => {
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="space-y-6"
           >
-            <h2 className="text-2xl font-semibold text-purple-400 mb-4">
+            <h2 className="text-xl font-semibold text-purple-400 mb-3">
               Basic Features
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {[
                 "Analytics",
                 "Image Gallery",
@@ -187,7 +184,7 @@ const WebsiteCostCalculator = () => {
                     onChange={handleInputChange}
                     className="form-checkbox text-purple-500"
                   />
-                  <span className="ml-2 text-white">{feature}</span>
+                  <span className="ml-2 text-white text-sm">{feature}</span>
                 </label>
               ))}
             </div>
@@ -197,12 +194,11 @@ const WebsiteCostCalculator = () => {
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="space-y-6"
           >
-            <h2 className="text-2xl font-semibold text-purple-400 mb-4">
+            <h2 className="text-xl font-semibold text-purple-400 mb-3">
               Advanced Features
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {[
                 "Payment Gateways",
                 "Chatbot",
@@ -218,7 +214,7 @@ const WebsiteCostCalculator = () => {
                     onChange={handleInputChange}
                     className="form-checkbox text-purple-500"
                   />
-                  <span className="ml-2 text-white">{feature}</span>
+                  <span className="ml-2 text-white text-sm">{feature}</span>
                 </label>
               ))}
             </div>
@@ -228,12 +224,11 @@ const WebsiteCostCalculator = () => {
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.8 }}
-            className="space-y-6"
           >
-            <h2 className="text-2xl font-semibold text-purple-400 mb-4">
+            <h2 className="text-xl font-semibold text-purple-400 mb-3">
               Additional Services
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {["Content Writing Services", "Stock Images", "SEO Design"].map(
                 (service) => (
                   <label key={service} className="inline-flex items-center">
@@ -245,7 +240,7 @@ const WebsiteCostCalculator = () => {
                       onChange={handleInputChange}
                       className="form-checkbox text-purple-500"
                     />
-                    <span className="ml-2 text-white">{service}</span>
+                    <span className="ml-2 text-white text-sm">{service}</span>
                   </label>
                 )
               )}
@@ -254,21 +249,22 @@ const WebsiteCostCalculator = () => {
 
           <motion.button
             type="submit"
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-3xl focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 mt-4"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Calculate Estimated Cost
           </motion.button>
         </form>
+
         {estimatedCost !== null && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="mt-8 text-white text-center"
+            className="mt-6 text-white text-center"
           >
-            <h2 className="text-2xl font-semibold text-purple-400 mb-4">
+            <h2 className="text-xl font-semibold text-purple-400 mb-2">
               Estimated Cost
             </h2>
             <p className="text-3xl font-bold">${estimatedCost.toFixed(2)}</p>

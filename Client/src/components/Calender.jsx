@@ -73,7 +73,7 @@ const AppointmentCalendar = () => {
       time: selectedTime,
     };
 
-    const baseUrl = "http://localhost:8080"; // Replace with your actual API base URL
+    const baseUrl = "http://localhost:8080";
 
     try {
       const response = await fetch(`${baseUrl}/api/appointments`, {
@@ -108,17 +108,13 @@ const AppointmentCalendar = () => {
 
   const renderCalendar = () => {
     const days = [];
+    // eslint-disable-next-line no-unused-vars
     const currentDate = new Date();
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push(<div key={`empty-${i}`} className="p-2"></div>);
     }
     for (let day = 1; day <= daysInMonth; day++) {
       const isSelected = day === selectedDate.getDate();
-      // eslint-disable-next-line no-unused-vars
-      const isToday =
-        day === currentDate.getDate() &&
-        selectedDate.getMonth() === currentDate.getMonth() &&
-        selectedDate.getFullYear() === currentDate.getFullYear();
       const isPast =
         new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day) <
         new Date().setHours(0, 0, 0, 0);
@@ -128,9 +124,9 @@ const AppointmentCalendar = () => {
       if (isSelected) {
         buttonClass += "bg-purple-600";
       } else if (isPast) {
-        buttonClass += "bg-gray-700 cursor-not-allowed";
+        buttonClass += "bg-gray-700/50 cursor-not-allowed";
       } else {
-        buttonClass += "bg-gray-600 hover:bg-purple-700";
+        buttonClass += "bg-gray-600/50 hover:bg-purple-700";
       }
 
       days.push(
@@ -154,32 +150,32 @@ const AppointmentCalendar = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen flex items-center justify-center bg-black py-12 px-4 sm:px-6 lg:px-8"
+      className="flex items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-gray-950 py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div className="max-w-4xl w-full space-y-8 bg-gray-900 p-8 rounded-xl border-2 border-purple-500 shadow-2xl">
+      <div className="max-w-4xl w-full space-y-6 bg-gradient-to-b from-gray-800/90 to-gray-900/90 p-6 rounded-xl border border-purple-500/30 shadow-2xl backdrop-blur-sm">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-4xl font-extrabold text-center text-white mb-8"
+          className="text-3xl font-bold text-center text-white mb-6"
         >
           Book Your Appointment
         </motion.h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <motion.div
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <h2 className="text-2xl font-semibold text-purple-400 mb-4">
+            <h2 className="text-xl font-semibold text-purple-400 mb-3">
               Select a Date
             </h2>
-            <div className="grid grid-cols-7 gap-1 border border-gray-700 p-2 rounded-lg">
+            <div className="grid grid-cols-7 gap-1 border border-purple-500/20 p-2 rounded-lg bg-gray-800/30">
               {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
                 <div
                   key={day}
-                  className="text-center text-gray-500 font-medium"
+                  className="text-center text-gray-400 font-medium text-sm"
                 >
                   {day}
                 </div>
@@ -192,12 +188,12 @@ const AppointmentCalendar = () => {
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="space-y-4"
+            className="space-y-3"
           >
-            <h2 className="text-2xl font-semibold text-purple-400 mb-4">
+            <h2 className="text-xl font-semibold text-purple-400 mb-3">
               Available Time Slots
             </h2>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               {timeSlots.map((time) => (
                 <motion.button
                   key={time}
@@ -205,7 +201,7 @@ const AppointmentCalendar = () => {
                   className={`p-2 rounded-md text-white font-medium transition duration-300 ease-in-out ${
                     selectedTime === time
                       ? "bg-purple-600"
-                      : "bg-gray-800 hover:bg-purple-700"
+                      : "bg-gray-800/50 hover:bg-purple-700"
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -222,11 +218,11 @@ const AppointmentCalendar = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="mt-8 flex justify-center"
+            className="mt-6 flex justify-center"
           >
             <button
               onClick={handleBookAppointment}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
             >
               Book Appointment
             </button>
@@ -237,23 +233,25 @@ const AppointmentCalendar = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center"
           >
-            <div className="bg-gray-800 p-6 rounded-lg border-2 border-purple-500 max-w-md w-full">
-              <h3 className="text-2xl font-semibold text-purple-400 mb-4">
+            <div className="bg-gradient-to-b from-gray-800/95 to-gray-900/95 p-6 rounded-lg border border-purple-500/30 max-w-sm w-full">
+              <h3 className="text-xl font-semibold text-purple-400 mb-3">
                 Confirm Your Appointment
               </h3>
-              <p className="text-white mb-2">
-                Date: {selectedDate.toDateString()}
-              </p>
-              <p className="text-white mb-4">Time: {selectedTime}</p>
-              <form onSubmit={handleConfirmAppointment} className="space-y-4">
+              <div className="bg-gray-800/30 p-3 rounded-md mb-4">
+                <p className="text-white text-sm">
+                  Date: {selectedDate.toDateString()}
+                </p>
+                <p className="text-white text-sm">Time: {selectedTime}</p>
+              </div>
+              <form onSubmit={handleConfirmAppointment} className="space-y-3">
                 <input
                   type="text"
                   placeholder="Your Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full p-2 rounded-md bg-gray-700 text-white"
+                  className="w-full p-2 rounded-md bg-gray-700/50 text-white text-sm border border-purple-500/20 focus:border-purple-500/50 outline-none"
                   required
                 />
                 <input
@@ -261,27 +259,27 @@ const AppointmentCalendar = () => {
                   placeholder="Your Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-2 rounded-md bg-gray-700 text-white"
+                  className="w-full p-2 rounded-md bg-gray-700/50 text-white text-sm border border-purple-500/20 focus:border-purple-500/50 outline-none"
                   required
                 />
                 {errorMessage && (
-                  <p className="text-red-500 text-sm">{errorMessage}</p>
+                  <p className="text-red-400 text-sm">{errorMessage}</p>
                 )}
-                <div className="flex justify-end mt-6">
+                <div className="flex justify-end gap-3 mt-4">
                   <button
                     type="button"
                     onClick={() => setShowDialog(false)}
-                    className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg mr-4 transition duration-300 ease-in-out"
+                    className="bg-gray-700/50 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg text-sm transition duration-300 ease-in-out"
                     disabled={loading}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+                    className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg text-sm transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
                     disabled={loading}
                   >
-                    {loading ? "Booking..." : "Confirm Booking"}
+                    {loading ? "Booking..." : "Confirm"}
                   </button>
                 </div>
               </form>
