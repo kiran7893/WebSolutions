@@ -233,7 +233,7 @@ const AppointmentCalendar = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center"
+            className="fixed inset-0 backdrop-blur-sm flex items-center justify-center"
           >
             <div className="bg-gradient-to-b from-gray-800/95 to-gray-900/95 p-6 rounded-lg border border-purple-500/30 max-w-sm w-full">
               <h3 className="text-xl font-semibold text-purple-400 mb-3">
