@@ -11,7 +11,7 @@ const WebsiteCostCalculator = () => {
     advancedFeatures: [],
     additionalServices: [],
   });
-
+  const [estimatedCost, setEstimatedCost] = useState(null);
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     if (type === "checkbox") {
@@ -29,10 +29,21 @@ const WebsiteCostCalculator = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Implement cost calculation logic here
+    try {
+      const response = await fetch("http://localhost:5000/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      setEstimatedCost(data.estimated_cost);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -250,7 +261,19 @@ const WebsiteCostCalculator = () => {
             Calculate Estimated Cost
           </motion.button>
         </form>
-        <div id="result" className="mt-8 text-white"></div>
+        {estimatedCost !== null && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="mt-8 text-white text-center"
+          >
+            <h2 className="text-2xl font-semibold text-purple-400 mb-4">
+              Estimated Cost
+            </h2>
+            <p className="text-3xl font-bold">${estimatedCost.toFixed(2)}</p>
+          </motion.div>
+        )}
       </div>
     </motion.div>
   );

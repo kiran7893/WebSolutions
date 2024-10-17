@@ -1,12 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
-import ContactUsModal from "./ContactUsModal"; // Make sure to import the ContactUsModal component
+import { useNavigate } from "react-router-dom";
+import ContactUsModal from "./ContactUsModal";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Menu items
   const menuItems = [
@@ -14,7 +16,7 @@ const NavBar = () => {
     { name: "About", href: "#about" },
     { name: "Services", href: "#services" },
     { name: "Pricing", href: "#pricing" },
-    { name: "Packages", href: "#packages" },
+    { name: "Calculator", href: "/calculator", isPage: true },
   ];
 
   // Scroll to section function
@@ -31,9 +33,13 @@ const NavBar = () => {
   // Handle navigation item click with delay
   const handleNavClick = (item) => {
     setIsOpen(false);
-    setTimeout(() => {
-      scrollToSection(item.href.slice(1));
-    }, 300);
+    if (item.isPage) {
+      navigate(item.href);
+    } else {
+      setTimeout(() => {
+        scrollToSection(item.href.slice(1));
+      }, 300);
+    }
     setActiveSection(item.name);
   };
 
@@ -48,9 +54,9 @@ const NavBar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const sections = menuItems.map((item) =>
-        document.getElementById(item.href.slice(1))
-      );
+      const sections = menuItems
+        .filter((item) => !item.isPage)
+        .map((item) => document.getElementById(item.href.slice(1)));
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
@@ -96,7 +102,7 @@ const NavBar = () => {
               }}
             >
               {item.name}
-              {activeSection === item.name && (
+              {activeSection === item.name && !item.isPage && (
                 <motion.div
                   className="absolute -bottom-1 left-0 w-full h-0.5 bg-purple-400"
                   layoutId="underline"

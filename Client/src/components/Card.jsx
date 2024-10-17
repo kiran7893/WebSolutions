@@ -1,13 +1,19 @@
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Card = ({ title, duration, cost, level, icon, para }) => {
-  const navigate = useNavigate(); // Call useNavigate at the top level
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/services"); // Handle navigation on click
+    navigate("/services");
   };
+
+  // Add this useEffect hook to scroll to top after navigation
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <motion.div
@@ -40,7 +46,7 @@ const Card = ({ title, duration, cost, level, icon, para }) => {
         onClick={handleClick}
         className="mt-auto bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 px-4 rounded-full hover:from-pink-500 hover:to-purple-500 transition-all duration-300"
       >
-        Enroll Now
+        Select Service
       </button>
     </motion.div>
   );
