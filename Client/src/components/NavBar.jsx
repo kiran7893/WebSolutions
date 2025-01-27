@@ -82,7 +82,7 @@ const NavBar = () => {
           whileTap={{ scale: 0.9 }}
           onClick={() => navigate("/")}
         >
-          TechBuddyz
+          WebSolutions
         </motion.div>
         {/* Desktop Menu */}
         <nav className="hidden md:flex space-x-8">
